@@ -69,7 +69,6 @@
       }
     }
   },
-  "defaultProject": "wine-site",
   "cli": {
     "analytics": "7f1fee76-f87a-477f-a9b4-9e7b127cf02a"
   }
