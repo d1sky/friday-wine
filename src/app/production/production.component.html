@@ -1,0 +1,37 @@
+<section class="section production">
+  <div class="section-header">
+    <div class="section-header-text">
+      <h2>Процесс производства вина</h2>
+      <p>
+        Путь вина — это цепочка продуманных решений и тонких настроек на каждом
+        этапе, от лозы до бутылки.
+      </p>
+    </div>
+    <figure class="section-photo">
+      <img
+        src="assets/images/production-header.jpg"
+        alt="Процесс производства вина на винодельне"
+        (error)="$any($event.target).src='https://images.pexels.com/photos/3952049/pexels-photo-3952049.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+      />
+    </figure>
+  </div>
+
+  <div class="timeline">
+    <article
+      class="timeline-step"
+      *ngFor="let step of steps"
+      [class.timeline-step--reverse]="step.number % 2 === 0"
+    >
+      <figure class="timeline-step-photo">
+        <img [src]="step.image" [alt]="step.imageAlt" (error)="onImageError(step)" />
+        <span class="timeline-step-number">{{ step.number }}</span>
+      </figure>
+      <div class="timeline-step-content">
+        <h3>{{ step.number }}. {{ step.title }}</h3>
+        <p class="timeline-step-lead">{{ step.description }}</p>
+        <p class="timeline-step-details">{{ step.details }}</p>
+      </div>
+    </article>
+  </div>
+</section>
+

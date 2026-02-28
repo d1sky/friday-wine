@@ -1,0 +1,36 @@
+<div class="page">
+  <header class="shell-header">
+    <div class="shell-logo">
+      <span class="shell-logo-mark">V</span>
+      <div class="shell-logo-text">
+        <span class="shell-logo-title">Винное путешествие</span>
+        <span class="shell-logo-subtitle">история, регионы, стили</span>
+      </div>
+    </div>
+
+    <nav class="shell-nav">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Главная
+      </a>
+      <a routerLink="/history" routerLinkActive="active">История</a>
+      <a routerLink="/geography" routerLinkActive="active">География</a>
+      <a routerLink="/production" routerLinkActive="active">Производство</a>
+      <a routerLink="/grapes" routerLinkActive="active">Сорта</a>
+      <a routerLink="/wines" routerLinkActive="active">Стили вина</a>
+      <a routerLink="/films" routerLinkActive="active">Кино</a>
+    </nav>
+  </header>
+
+  <main class="shell-main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer">
+    <p>Создано для изучения мира вина. Пейте ответственно.</p>
+  </footer>
+</div>
+

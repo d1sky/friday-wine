@@ -1,0 +1,49 @@
+<section class="section grapes">
+  <div class="section-header">
+    <div class="section-header-text">
+      <h2>Сорта винограда</h2>
+      <p>
+        Шесть ключевых международных сортов: от происхождения и характера до
+        типичных вин и регионов. Каждый сорт — отдельная история в бокале.
+      </p>
+    </div>
+    <figure class="section-photo">
+      <img
+        src="assets/images/grapes-header.jpg"
+        alt="Гроздья красного и белого винограда"
+        (error)="$any($event.target).src='https://images.pexels.com/photos/2801288/pexels-photo-2801288.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+      />
+    </figure>
+  </div>
+
+  <div class="chips">
+    <span class="chip chip--red">Красные сорта</span>
+    <span class="chip chip--white">Белые сорта</span>
+  </div>
+
+  <div class="grapes-grid">
+    <article
+      class="grape-card"
+      *ngFor="let grape of grapeVarieties"
+      [class.grape-card--red]="grape.color === 'red'"
+      [class.grape-card--white]="grape.color === 'white'"
+    >
+      <figure class="grape-card-photo" *ngIf="grape.image">
+        <img
+          [src]="grape.image"
+          [alt]="grape.imageAlt || grape.name"
+          (error)="onImageError(grape)"
+        />
+      </figure>
+      <div class="grape-card-body">
+        <h3>{{ grape.name }}</h3>
+        <p class="grape-card-origin">{{ grape.origin }}</p>
+        <p class="grape-card-character">{{ grape.characteristics }}</p>
+        <p class="grape-card-fact" *ngIf="grape.keyFact">{{ grape.keyFact }}</p>
+        <p class="grape-card-footer">
+          Типичные вина: <strong>{{ grape.commonWines }}</strong>
+        </p>
+      </div>
+    </article>
+  </div>
+</section>

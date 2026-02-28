@@ -1,0 +1,59 @@
+<section class="section wines">
+  <div class="section-header">
+    <div class="section-header-text">
+      <h2>Стили и типы вина</h2>
+      <p>
+        Пять основных типов: от тихих красных и белых до игристых и креплёных.
+        Для каждого — краткое описание, сочетания с едой, температура подачи и
+        примеры регионов или вин.
+      </p>
+    </div>
+    <div class="section-photos">
+      <figure>
+        <img
+          src="assets/images/wines-1.jpg"
+          alt="Бокалы с красным и белым вином"
+          (error)="$any($event.target).src='https://images.pexels.com/photos/214573/pexels-photo-214573.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        />
+      </figure>
+      <figure>
+        <img
+          src="assets/images/wines-2.jpg"
+          alt="Игристое вино в бокале"
+          (error)="$any($event.target).src='https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        />
+      </figure>
+    </div>
+  </div>
+
+  <div class="wines-grid">
+    <article
+      class="wine-card"
+      *ngFor="let style of wineStyles"
+      [class.wine-card--red]="style.color === 'red'"
+      [class.wine-card--white]="style.color === 'white'"
+      [class.wine-card--rose]="style.color === 'rose'"
+    >
+      <figure class="wine-card-photo" *ngIf="style.image">
+        <img
+          [src]="style.image"
+          [alt]="style.imageAlt || style.name"
+          (error)="onImageError(style)"
+        />
+      </figure>
+      <div class="wine-card-body">
+        <h3>{{ style.name }}</h3>
+        <p class="wine-card-desc">{{ style.description }}</p>
+        <p class="wine-card-pairing">
+          <span class="wine-card-label">С едой:</span> {{ style.foodPairing }}
+        </p>
+        <p class="wine-card-tip" *ngIf="style.servingTip">
+          <span class="wine-card-label">Подача:</span> {{ style.servingTip }}
+        </p>
+        <p class="wine-card-examples" *ngIf="style.examples">
+          <span class="wine-card-label">Примеры:</span> {{ style.examples }}
+        </p>
+      </div>
+    </article>
+  </div>
+</section>

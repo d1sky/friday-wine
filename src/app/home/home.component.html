@@ -1,0 +1,84 @@
+<section class="home">
+  <header class="home-hero">
+    <div class="home-hero-overlay"></div>
+    <div class="home-hero-content">
+      <p class="home-hero-kicker">Открой мир вина</p>
+      <h1>Гроздья, солнце и бокал</h1>
+      <p class="home-hero-lead">
+        Путешествие от виноградной лозы до вашего бокала: история, терруар,
+        ремесло виноделов и стили вина, которыми наслаждаются по всему миру.
+      </p>
+
+      <nav class="home-hero-nav">
+        <a routerLink="/history">История</a>
+        <a routerLink="/geography">Регионы</a>
+        <a routerLink="/production">Производство</a>
+        <a routerLink="/grapes">Сорта винограда</a>
+        <a routerLink="/wines">Стили вина</a>
+        <a routerLink="/films">Кино и вино</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="home-intro">
+    <div class="home-intro-card">
+      <img
+        src="assets/images/home-intro.jpg"
+        alt="Гроздья винограда и бокал красного вина"
+        (error)="$any($event.target).src='https://images.pexels.com/photos/2903167/pexels-photo-2903167.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+      />
+      <div class="home-intro-text">
+        <h2>От лозы до бокала</h2>
+        <p>
+          Вино — это отражение земли, климата и человеческого мастерства. На
+          этом сайте собрана сжатая, но насыщенная информация, которая поможет
+          лучше понять происхождение и характер любимых вин.
+        </p>
+      </div>
+    </div>
+
+    <div class="home-grid">
+      <article class="home-tile">
+        <h3>История и традиции</h3>
+        <p>
+          Узнайте, как древние цивилизации, монастыри и эпоха открытий
+          сформировали современную культуру вина.
+        </p>
+        <a routerLink="/history">Перейти к истории →</a>
+      </article>
+      <article class="home-tile">
+        <h3>География и терруар</h3>
+        <p>
+          Погрузитесь в мир классических европейских регионов и динамичного
+          Нового Света.
+        </p>
+        <a routerLink="/geography">Исследовать регионы →</a>
+      </article>
+      <article class="home-tile">
+        <h3>Искусство виноделия</h3>
+        <p>
+          Пройдите путь от выбора участка до выдержки и розлива вина по
+          бутылкам.
+        </p>
+        <a routerLink="/production">Посмотреть этапы →</a>
+      </article>
+      <article class="home-tile">
+        <h3>Сорта и стили</h3>
+        <p>
+          Познакомьтесь с ключевыми сортами винограда и основными стилями вин,
+          чтобы увереннее выбирать на полке.
+        </p>
+        <a routerLink="/grapes">Сорта и стили →</a>
+      </article>
+      <article class="home-tile">
+        <h3>Кино и вино</h3>
+        <p>
+          Подборка фильмов, где вино и виноделие в центре сюжета: от «На обочине»
+          до «Вдовы Клико».
+        </p>
+        <a routerLink="/films">Смотреть подборку →</a>
+      </article>
+    </div>
+  </section>
+</section>
+

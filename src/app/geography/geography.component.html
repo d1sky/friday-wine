@@ -1,0 +1,48 @@
+<section class="section geography">
+  <div class="section-header">
+    <div class="section-header-text">
+      <h2>География и терруар</h2>
+      <p>
+        Вино рождается в конкретном месте: климат, почва, рельеф и традиции
+        региона отражаются в бокале. Ниже — четыре ключевые темы: Старый и Новый
+        свет, терруар и микроклимат.
+      </p>
+    </div>
+    <div class="section-photos">
+      <figure>
+        <img
+          src="assets/images/geography-1.jpg"
+          alt="Виноградники на склонах холмов"
+          (error)="$any($event.target).src='https://images.pexels.com/photos/3952047/pexels-photo-3952047.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        />
+      </figure>
+      <figure>
+        <img
+          src="assets/images/geography-2.jpg"
+          alt="Виноградник на фоне заката"
+          (error)="$any($event.target).src='https://images.pexels.com/photos/2961029/pexels-photo-2961029.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        />
+      </figure>
+    </div>
+  </div>
+
+  <div class="geography-blocks">
+    <article
+      class="geography-block"
+      *ngFor="let block of blocks; let i = index"
+      [class.geography-block--reverse]="i % 2 === 1"
+    >
+      <figure class="geography-block-photo">
+        <img
+          [src]="block.image"
+          [alt]="block.imageAlt"
+          (error)="onImageError(block)"
+        />
+      </figure>
+      <div class="geography-block-text">
+        <h3>{{ block.title }}</h3>
+        <p>{{ block.content }}</p>
+      </div>
+    </article>
+  </div>
+</section>

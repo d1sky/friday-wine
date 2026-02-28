@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+.angular/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+npm-debug.log*
+.npm
+.tmp
+*.tmp
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Test
+coverage/
+.nyc_output/
+karma.conf.js
+*.spec.ts
+
+# e2e
+/e2e/

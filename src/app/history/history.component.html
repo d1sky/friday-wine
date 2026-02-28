@@ -1,0 +1,44 @@
+<section class="section history">
+  <div class="section-header">
+    <div class="section-header-text">
+      <h2>История вина</h2>
+      <p>
+        Путешествие по эпохам: от первых археологических следов виноградного вина
+        до современного глобального виноделия. Ниже — ключевые вехи, опирающиеся
+        на находки и письменные источники.
+      </p>
+    </div>
+    <figure class="section-photo">
+      <img
+        src="assets/images/history-header.jpg"
+        alt="Старинный погреб с бочками вина"
+        (error)="$any($event.target).src='https://images.pexels.com/photos/2147960/pexels-photo-2147960.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+      />
+    </figure>
+  </div>
+
+  <div class="history-timeline">
+    <article
+      class="history-era"
+      *ngFor="let era of eras; let i = index"
+      [class.history-era--reverse]="i % 2 === 1"
+    >
+      <div class="history-era-marker"></div>
+      <div class="history-era-body">
+        <figure class="history-era-photo">
+          <img
+            [src]="era.image"
+            [alt]="era.imageAlt"
+            (error)="onImageError(era)"
+          />
+        </figure>
+        <div class="history-era-text">
+          <span class="history-era-period">{{ era.period }}</span>
+          <h3 class="history-era-title">{{ era.title }}</h3>
+          <p class="history-era-content">{{ era.content }}</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+

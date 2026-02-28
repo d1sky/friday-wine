@@ -1,0 +1,41 @@
+<section class="section films">
+  <div class="section-header">
+    <div class="section-header-text">
+      <h2>Кино и вино</h2>
+      <p>
+        Подборка фильмов, где вино и виноделие — не просто фон, а сюжет, герои и
+        атмосфера: от комедий и драм до документалки о сомелье и байопика о
+        вдове Клико.
+      </p>
+    </div>
+    <figure class="section-photo">
+      <img
+        src="assets/images/films-header.jpg"
+        alt="Кино и вино"
+        (error)="$any($event.target).src='https://images.pexels.com/photos/214573/pexels-photo-214573.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+      />
+    </figure>
+  </div>
+
+  <div class="films-grid">
+    <article class="film-card" *ngFor="let film of films">
+      <figure class="film-card-poster" *ngIf="film.image">
+        <img
+          [src]="film.image"
+          [alt]="film.imageAlt || film.title"
+          (error)="onImageError(film)"
+        />
+        <span class="film-card-year">{{ film.year }}</span>
+      </figure>
+      <div class="film-card-body">
+        <h3 class="film-card-title">{{ film.title }}</h3>
+        <p class="film-card-original">{{ film.titleOriginal }} · {{ film.country }}</p>
+        <p class="film-card-desc">{{ film.description }}</p>
+        <div class="film-card-wine">
+          <span class="film-card-wine-label">Вино в фильме</span>
+          <p>{{ film.wineTheme }}</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
