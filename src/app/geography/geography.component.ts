@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { getResponsiveDefault, getSrcSet, isLocalAsset } from '../shared/image-helpers';
+import { ResponsiveImageComponent } from '../shared/responsive-image/responsive-image.component';
 
 export interface GeographyBlock {
   id: string;
@@ -8,16 +10,17 @@ export interface GeographyBlock {
   image: string;
   imageAlt: string;
   fallbackImage?: string;
+  currentSrc?: string;
 }
 
 @Component({
   selector: 'app-geography',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ResponsiveImageComponent],
   templateUrl: './geography.component.html',
   styleUrls: ['./geography.component.scss']
 })
-export class GeographyComponent {
+export class GeographyComponent implements OnInit {
   blocks: GeographyBlock[] = [
     {
       id: 'old-world',
@@ -57,9 +60,19 @@ export class GeographyComponent {
     }
   ];
 
+  ngOnInit() {
+    this.blocks.forEach((b) => {
+      b.currentSrc = getResponsiveDefault(b.image);
+    });
+  }
+
+  getSrcSetForBlock(block: GeographyBlock): string {
+    return isLocalAsset(block.currentSrc || block.image) ? getSrcSet(block.image) : '';
+  }
+
   onImageError(block: GeographyBlock): void {
     if (block.fallbackImage) {
-      block.image = block.fallbackImage;
+      block.currentSrc = block.fallbackImage;
     }
   }
 }

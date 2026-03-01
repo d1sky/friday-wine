@@ -10,17 +10,17 @@
     </div>
     <div class="section-photos">
       <figure>
-        <img
-          src="assets/images/wines-1.jpg"
+        <app-responsive-image
+          imageBase="wines-1"
           alt="Бокалы с красным и белым вином"
-          (error)="$any($event.target).src='https://images.pexels.com/photos/214573/pexels-photo-214573.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+          fallback="assets/images/wines-1.jpg"
         />
       </figure>
       <figure>
-        <img
-          src="assets/images/wines-2.jpg"
+        <app-responsive-image
+          imageBase="wines-2"
           alt="Игристое вино в бокале"
-          (error)="$any($event.target).src='https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+          fallback="assets/images/wines-2.jpg"
         />
       </figure>
     </div>
@@ -36,7 +36,9 @@
     >
       <figure class="wine-card-photo" *ngIf="style.image">
         <img
-          [src]="style.image"
+          [src]="style.currentSrc"
+          [attr.srcset]="getSrcSetForStyle(style)"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           [alt]="style.imageAlt || style.name"
           (error)="onImageError(style)"
         />

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { getResponsiveDefault, getSrcSet, isLocalAsset } from '../shared/image-helpers';
 
 export interface HistoryEra {
   period: string;
@@ -8,16 +9,19 @@ export interface HistoryEra {
   image: string;
   imageAlt: string;
   fallbackImage?: string;
+  currentSrc?: string;
 }
+
+import { ResponsiveImageComponent } from '../shared/responsive-image/responsive-image.component';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ResponsiveImageComponent],
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class HistoryComponent {
+export class HistoryComponent implements OnInit {
   /** Хронология по эпохам: факты из археологии и исторических источников */
   eras: HistoryEra[] = [
     {
@@ -94,9 +98,19 @@ export class HistoryComponent {
     }
   ];
 
+  ngOnInit() {
+    this.eras.forEach((e) => {
+      e.currentSrc = getResponsiveDefault(e.image);
+    });
+  }
+
+  getSrcSetForEra(era: HistoryEra): string {
+    return isLocalAsset(era.currentSrc || era.image) ? getSrcSet(era.image) : '';
+  }
+
   onImageError(era: HistoryEra): void {
     if (era.fallbackImage) {
-      era.image = era.fallbackImage;
+      era.currentSrc = era.fallbackImage;
     }
   }
 }

@@ -1,10 +1,18 @@
 $bg: #05050c;
 $text: #f7f7ff;
+$page-bg: #0b0b16;
+$accent: #e63946;
+$text-main: #f7f7ff;
+$text-muted: #b0b0c2;
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -21,7 +29,241 @@ body {
   color: $text;
 }
 
-body {
+/* ========== App shell (global so styles always apply on desktop and mobile) ========== */
+.page {
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #2b2d42, #00010a);
+  color: $text-main;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text',
+    'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    120deg,
+    rgba(5, 5, 20, 0.9),
+    rgba(40, 10, 40, 0.85)
+  );
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.shell-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.shell-logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, $accent, #811331);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.shell-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-logo-title {
+  font-size: 0.98rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.shell-logo-subtitle {
+  font-size: 0.8rem;
+  color: $text-muted;
+}
+
+.shell-nav {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+
+  a {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: $text-muted;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+
+    &.active {
+      color: $text-main;
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(230, 57, 70, 0.16);
+    }
+
+    &:hover {
+      color: $text-main;
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+  }
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: $text-main;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.menu-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: linear-gradient(
+    160deg,
+    rgba(11, 11, 22, 0.99),
+    rgba(30, 15, 35, 0.98)
+  );
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  padding: 2rem;
+
+  &.menu-overlay-open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.menu-overlay-nav {
+  width: 100%;
+  max-width: 420px;
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(15, 15, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+
+  a {
+    display: block;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: $text-muted;
+    padding: 1rem 1.35rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    border-left: 4px solid transparent;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &.active {
+      color: $text-main;
+      background: rgba(230, 57, 70, 0.12);
+      border-left-color: $accent;
+    }
+
+    &:hover {
+      color: $text-main;
+      background: rgba(255, 255, 255, 0.05);
+      border-left-color: rgba(230, 57, 70, 0.6);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .shell-nav-desktop {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+}
+
+@media (min-width: 1025px) {
+  .menu-overlay {
+    display: none;
+  }
+}
+
+.shell-main {
+  flex: 1 1 auto;
+}
+
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: $text-muted;
+  background: radial-gradient(circle at top, rgba(221, 42, 123, 0.2), #050510);
+}
+
+@media (max-width: 768px) {
+  .shell-header {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Hero background: only in global styles to avoid duplicate asset emission in webpack */
+.home-hero {
+  background-image: url('assets/images/home-hero-800w.jpg');
+}
+@media (max-width: 768px) {
+  .home-hero {
+    background-image: url('assets/images/home-hero-480w.jpg');
+  }
+}
+@media (min-width: 1201px) {
+  .home-hero {
+    background-image: url('assets/images/home-hero-1200w.jpg');
+  }
 }
 

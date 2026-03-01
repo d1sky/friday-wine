@@ -8,10 +8,10 @@
       </p>
     </div>
     <figure class="section-photo">
-      <img
-        src="assets/images/grapes-header.jpg"
+      <app-responsive-image
+        imageBase="grapes-header"
         alt="Гроздья красного и белого винограда"
-        (error)="$any($event.target).src='https://images.pexels.com/photos/2801288/pexels-photo-2801288.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        fallback="assets/images/grapes-header.jpg"
       />
     </figure>
   </div>
@@ -30,7 +30,9 @@
     >
       <figure class="grape-card-photo" *ngIf="grape.image">
         <img
-          [src]="grape.image"
+          [src]="grape.currentSrc"
+          [attr.srcset]="getSrcSetForGrape(grape)"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           [alt]="grape.imageAlt || grape.name"
           (error)="onImageError(grape)"
         />

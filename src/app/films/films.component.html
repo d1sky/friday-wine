@@ -9,10 +9,10 @@
       </p>
     </div>
     <figure class="section-photo">
-      <img
-        src="assets/images/films-header.jpg"
+      <app-responsive-image
+        imageBase="films-header"
         alt="Кино и вино"
-        (error)="$any($event.target).src='https://images.pexels.com/photos/214573/pexels-photo-214573.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        fallback="assets/images/films-header.jpg"
       />
     </figure>
   </div>
@@ -21,7 +21,9 @@
     <article class="film-card" *ngFor="let film of films">
       <figure class="film-card-poster" *ngIf="film.image">
         <img
-          [src]="film.image"
+          [src]="film.currentSrc"
+          [attr.srcset]="getSrcSetForFilm(film)"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           [alt]="film.imageAlt || film.title"
           (error)="onImageError(film)"
         />

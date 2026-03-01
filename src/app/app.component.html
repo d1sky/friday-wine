@@ -8,22 +8,34 @@
       </div>
     </div>
 
-    <nav class="shell-nav">
-      <a
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Главная
-      </a>
-      <a routerLink="/history" routerLinkActive="active">История</a>
-      <a routerLink="/geography" routerLinkActive="active">География</a>
-      <a routerLink="/production" routerLinkActive="active">Производство</a>
-      <a routerLink="/grapes" routerLinkActive="active">Сорта</a>
-      <a routerLink="/wines" routerLinkActive="active">Стили вина</a>
-      <a routerLink="/films" routerLinkActive="active">Кино</a>
+    <nav class="shell-nav shell-nav-desktop">
+      <app-nav-links />
     </nav>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      aria-label="Открыть меню"
+      (click)="openMenu()"
+    >
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+    </button>
   </header>
+
+  <div
+    class="menu-overlay"
+    [class.menu-overlay-open]="isMenuOpen"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Меню"
+    (click)="onOverlayClick($event)"
+  >
+    <nav class="menu-overlay-nav" aria-label="Основная навигация">
+      <app-nav-links />
+    </nav>
+  </div>
 
   <main class="shell-main">
     <router-outlet></router-outlet>
@@ -33,4 +45,3 @@
     <p>Создано для изучения мира вина. Пейте ответственно.</p>
   </footer>
 </div>
-

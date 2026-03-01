@@ -10,17 +10,17 @@
     </div>
     <div class="section-photos">
       <figure>
-        <img
-          src="assets/images/geography-1.jpg"
+        <app-responsive-image
+          imageBase="geography-1"
           alt="Виноградники на склонах холмов"
-          (error)="$any($event.target).src='https://images.pexels.com/photos/3952047/pexels-photo-3952047.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+          fallback="assets/images/geography-1.jpg"
         />
       </figure>
       <figure>
-        <img
-          src="assets/images/geography-2.jpg"
+        <app-responsive-image
+          imageBase="geography-2"
           alt="Виноградник на фоне заката"
-          (error)="$any($event.target).src='https://images.pexels.com/photos/2961029/pexels-photo-2961029.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+          fallback="assets/images/geography-2.jpg"
         />
       </figure>
     </div>
@@ -34,7 +34,9 @@
     >
       <figure class="geography-block-photo">
         <img
-          [src]="block.image"
+          [src]="block.currentSrc"
+          [attr.srcset]="getSrcSetForBlock(block)"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
           [alt]="block.imageAlt"
           (error)="onImageError(block)"
         />

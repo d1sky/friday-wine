@@ -22,10 +22,10 @@
 
   <section class="home-intro">
     <div class="home-intro-card">
-      <img
-        src="assets/images/home-intro.jpg"
+      <app-responsive-image
+        imageBase="home-intro"
         alt="Гроздья винограда и бокал красного вина"
-        (error)="$any($event.target).src='https://images.pexels.com/photos/2903167/pexels-photo-2903167.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        fallback="assets/images/home-intro.jpg"
       />
       <div class="home-intro-text">
         <h2>От лозы до бокала</h2>

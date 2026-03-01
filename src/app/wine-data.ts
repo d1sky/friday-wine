@@ -8,6 +8,7 @@ export interface GrapeVariety {
   image?: string;
   imageAlt?: string;
   fallbackImage?: string;
+  currentSrc?: string;
 }
 
 export interface WineStyle {
@@ -20,6 +21,7 @@ export interface WineStyle {
   image?: string;
   imageAlt?: string;
   fallbackImage?: string;
+  currentSrc?: string;
 }
 
 export const GRAPE_VARIETIES: GrapeVariety[] = [

@@ -1,25 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { getResponsiveDefault, getSrcSet, isLocalAsset } from '../shared/image-helpers';
+import { ResponsiveImageComponent } from '../shared/responsive-image/responsive-image.component';
 
 export interface ProductionStep {
   number: number;
   title: string;
   image: string;
-  /** Запасной URL (например Pexels), если локальное изображение не загрузилось */
   fallbackImage?: string;
   imageAlt: string;
   description: string;
   details: string;
+  currentSrc?: string;
 }
 
 @Component({
   selector: 'app-production',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ResponsiveImageComponent],
   templateUrl: './production.component.html',
   styleUrls: ['./production.component.scss']
 })
-export class ProductionComponent {
+export class ProductionComponent implements OnInit {
   steps: ProductionStep[] = [
     {
       number: 1,
@@ -95,9 +97,19 @@ export class ProductionComponent {
     }
   ];
 
+  ngOnInit() {
+    this.steps.forEach((s) => {
+      s.currentSrc = getResponsiveDefault(s.image);
+    });
+  }
+
+  getSrcSetForStep(step: ProductionStep): string {
+    return isLocalAsset(step.currentSrc || step.image) ? getSrcSet(step.image) : '';
+  }
+
   onImageError(step: ProductionStep): void {
     if (step.fallbackImage) {
-      step.image = step.fallbackImage;
+      step.currentSrc = step.fallbackImage;
     }
   }
 }

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { getResponsiveDefault, getSrcSet, isLocalAsset } from '../shared/image-helpers';
+import { ResponsiveImageComponent } from '../shared/responsive-image/responsive-image.component';
 
 export interface WineFilm {
   title: string;
@@ -12,16 +14,17 @@ export interface WineFilm {
   image?: string;
   imageAlt?: string;
   fallbackImage?: string;
+  currentSrc?: string;
 }
 
 @Component({
   selector: 'app-films',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ResponsiveImageComponent],
   templateUrl: './films.component.html',
   styleUrls: ['./films.component.scss']
 })
-export class FilmsComponent {
+export class FilmsComponent implements OnInit {
   films: WineFilm[] = [
     {
       title: 'На обочине',
@@ -137,9 +140,20 @@ export class FilmsComponent {
     }
   ];
 
+  ngOnInit() {
+    this.films.forEach((f) => {
+      if (f.image) f.currentSrc = getResponsiveDefault(f.image);
+    });
+  }
+
+  getSrcSetForFilm(film: WineFilm): string {
+    const src = film.currentSrc || film.image;
+    return src && isLocalAsset(src) && film.image ? getSrcSet(film.image) : '';
+  }
+
   onImageError(film: WineFilm): void {
     if (film.fallbackImage) {
-      film.image = film.fallbackImage;
+      film.currentSrc = film.fallbackImage;
     }
   }
 }

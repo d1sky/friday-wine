@@ -8,10 +8,10 @@
       </p>
     </div>
     <figure class="section-photo">
-      <img
-        src="assets/images/production-header.jpg"
+      <app-responsive-image
+        imageBase="production-header"
         alt="Процесс производства вина на винодельне"
-        (error)="$any($event.target).src='https://images.pexels.com/photos/3952049/pexels-photo-3952049.jpeg?auto=compress&cs=tinysrgb&w=1600'"
+        fallback="assets/images/production-header.jpg"
       />
     </figure>
   </div>
@@ -23,7 +23,13 @@
       [class.timeline-step--reverse]="step.number % 2 === 0"
     >
       <figure class="timeline-step-photo">
-        <img [src]="step.image" [alt]="step.imageAlt" (error)="onImageError(step)" />
+        <img
+          [src]="step.currentSrc"
+          [attr.srcset]="getSrcSetForStep(step)"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+          [alt]="step.imageAlt"
+          (error)="onImageError(step)"
+        />
         <span class="timeline-step-number">{{ step.number }}</span>
       </figure>
       <div class="timeline-step-content">
